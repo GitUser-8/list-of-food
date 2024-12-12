@@ -25,3 +25,15 @@ class ShoppingListListView(generic.ListView):
 
 class ShoppingListDetailView(generic.DetailView):
     model = ShoppingList
+
+class IngredientListView(generic.ListView):
+    model = Ingredient
+
+class IngredientDetailView(generic.DetailView):
+    model = Ingredient
+
+class RecipeListView(generic.ListView):
+    model = Recipe
+
+class RecipeDetailView(generic.DetailView):
+    model = Recipe

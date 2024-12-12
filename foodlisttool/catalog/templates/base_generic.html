@@ -21,7 +21,9 @@
           {% block sidebar %}
             <ul class="sidebar-nav">
               <li><a href="{% url 'index' %}">Accueil</a></li>
-              <li><a href="{% url 'shopping-lists' %}">Listes de course</a></li>
+              <li><a href="{% url 'shoppinglists' %}">Listes de course</a></li>
+              <li><a href="{% url 'ingredients' %}">Ingrédients</a></li>
+              <li><a href="{% url 'recipes' %}">Recettes</a></li>
             </ul>
           {% endblock %}
         </div>

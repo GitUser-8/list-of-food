@@ -6,7 +6,7 @@ import datetime
 class Ingredient(models.Model):
     """Model reprenting an ingredient."""
     name = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='images/', null=True)
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
 
     def __str__(self):
         """String for representing the Model object."""
