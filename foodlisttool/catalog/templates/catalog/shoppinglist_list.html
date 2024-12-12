@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Liste des listes de courses</h1>
+  {% if shoppinglist_list %}
+    <ul>
+      {% for shoplist in shoppinglist_list %}
+      <li>
+        <a href="{{ shoplist.get_absolute_url }}">{{ shoplist.date }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Il n'y a aucune liste.</p>
+  {% endif %}
+{% endblock %}
