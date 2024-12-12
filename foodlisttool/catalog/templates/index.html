@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+context = {
+    'num_ing': num_ing,
+    'num_recipe': num_recipe,
+    'num_shoplist': num_shoplist,
+}
+{% block content %}
+  <h1>Liste de course</h1>
+  <p>
+    Le liste présente une liste d'ingrédients avec plusieurs fonctionnalités pour gérer les courses et achats alimentaires quotidiens.
+  </p>
+  <h2>Liste d'ingrédients</h2>
+  <p>Le site compte {{ num_ing }} ingrédients, {{ num_recipe }} recettes, {{ num_shoplist }} listes. Les ingrédients ci-dessous :</p>
+  <ul>
+    <li><strong>Books:</strong> {{ num_books }}</li>
+    <li><strong>Copies:</strong> {{ num_instances }}</li>
+    <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
+    <li><strong>Authors:</strong> {{ num_authors }}</li>
+  </ul>
+{% endblock %}
