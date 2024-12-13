@@ -1,30 +1,37 @@
 from django.shortcuts import render
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
 from .models import Ingredient, Recipe, ShoppingList
 
+
 def index(request):
     """View function for home page of site."""
 
-    num_ing = Ingredient.objects.count()
-    num_recipe = Recipe.objects.count()
-    num_shoplist = ShoppingList.objects.count()
+    all_ing_list = Ingredient.objects.all()
 
     context = {
-        'num_ing': num_ing,
-        'num_recipe': num_recipe,
-        'num_shoplist': num_shoplist,
+        'ing_list': all_ing_list
     }
 
     return render(request, 'index.html', context=context)
 
-class ShoppingListListView(generic.ListView):
+
+class ShoppingListListView(LoginRequiredMixin, generic.ListView):
     model = ShoppingList
 
-class ShoppingListDetailView(generic.DetailView):
+class ShoppingListDetailView(LoginRequiredMixin, generic.DetailView):
     model = ShoppingList
+
+class ShoppingListByUserListView(LoginRequiredMixin, generic.ListView):
+    """Generic class-based view listing shopping lists to current user."""
+    model = ShoppingList
+    template_name = 'catalog/shoppinglist_list_user.html'
+    
+    def get_queryset(self):
+        return ShoppingList.objects.filter(user=self.request.user).order_by('date')
 
 class IngredientListView(generic.ListView):
     model = Ingredient

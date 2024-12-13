@@ -1,8 +1,13 @@
 {% extends "base_generic.html" %}
 {% block content %}
   <h1>Liste de course</h1>
-  <p>
-    Accueil du site.
-  </p>
-  <p>Le site compte {{ num_ing }} ingrédients, {{ num_recipe }} recettes, {{ num_shoplist }} listes.</p>
+  {% if ing_list %}
+  <ul class="list-container">
+    {% for ing in ing_list %}
+      <li><span class="clicker"><img src="{{ ing.image.get_absolute_url }}">{{ ing.name }}</span></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>Aucun ingrédient enregistré.</p>
+  {% endif %}
 {% endblock %}
