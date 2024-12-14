@@ -18,10 +18,6 @@ def index(request):
 
     return render(request, 'index.html', context=context)
 
-
-class ShoppingListListView(LoginRequiredMixin, generic.ListView):
-    model = ShoppingList
-
 class ShoppingListDetailView(LoginRequiredMixin, generic.DetailView):
     model = ShoppingList
 
