@@ -4,10 +4,14 @@
   {% if ing_list %}
   <ul class="list-container">
     {% for ing in ing_list %}
-      <li><span class="clicker"><img src="{{ ing.image.get_absolute_url }}">{{ ing.name }}</span></li>
-    {% endfor %}
+      <li><button type="button" class="clicker"><img src="{{ ing.image.url }}"><span>{{ ing.name }}</span></button></li>
+      <p id="item"></p>
+      {% endfor %}
   </ul>
   {% else %}
   <p>Aucun ingrédient enregistré.</p>
   {% endif %}
+{% endblock %}
+{% block end %}
+<script src="/static/scripts/script.js" defer></script>
 {% endblock %}
