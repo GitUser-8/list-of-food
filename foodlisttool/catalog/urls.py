@@ -8,6 +8,7 @@ urlpatterns = [
     path('ingredient/<int:pk>', views.IngredientDetailView.as_view(), name='ingredient-detail'),
     path('recettes/', views.RecipeListView.as_view(), name='recipes'),
     path('recette/<int:pk>', views.RecipeDetailView.as_view(), name='recipe-detail'),
-    path('meslistes/', views.ShoppingListByUserListView.as_view(), name='my_shoppinglists'),
+    path('meslistes/', views.ShoppingListByUserListView.as_view(), name='my-shoppinglists'),
+    path('addingredient/', views.add_item_to_list_view, name='add-ing')
 ]
 
