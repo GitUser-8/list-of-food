@@ -31,7 +31,7 @@
                   <button type="submit" class="btn btn-link">Deconnexion</button>
                 </form>
               </li>
-              <li><a href="{% url 'my_shoppinglists' %}">Mes listes de courses</a></li>
+              <li><a href="{% url 'my-shoppinglists' %}">Mes listes de courses</a></li>
               {% else %}
               <li><a href="{% url 'login' %}?next={{ request.path }}">Connexion</a></li>
             {% endif %}

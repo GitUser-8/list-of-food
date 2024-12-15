@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+import json
 
 # Create your views here.
 
 from .models import Ingredient, Recipe, ShoppingList
-
 
 def index(request):
     """View function for home page of site."""
@@ -16,7 +16,18 @@ def index(request):
         'ing_list': all_ing_list
     }
 
+    if request.method == "POST":
+        post_data = json.loads(request.body.decode("utf-8"))
+        context['id_posted'] = post_data['id']
+
+    
+
     return render(request, 'index.html', context=context)
+
+def add_item_to_list_view(request):
+    if request.method == "POST":
+        post_data = json.loads(request.body.decode("utf-8"))
+        return post_data['id']
 
 class ShoppingListDetailView(LoginRequiredMixin, generic.DetailView):
     model = ShoppingList
@@ -40,3 +51,4 @@ class RecipeListView(generic.ListView):
 
 class RecipeDetailView(generic.DetailView):
     model = Recipe
+
