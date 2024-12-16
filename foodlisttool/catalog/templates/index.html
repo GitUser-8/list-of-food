@@ -1,11 +1,21 @@
 {% extends "base_generic.html" %}
 {% block content %}
-  <h1>Liste de course</h1>
+  <h1 id="list-name" contenteditable="true">Liste de course</h1>
+  <p id="testzone">test</p>
+  <p id="testzone2">test2</p>
+  {{ shopLists|json_script:"shoplists" }}
+  {% if shoplists %}
+   <!-- favorite|json_script:"favorite"  -->
+  <select id="currentListSelector">
+    {% for shoplist in shoplists %}
+    <option value="{{ shoplist.name }}">{{ shoplist.name }}</option>
+    {% endfor %}
+  </select> 
+  {% endif %}  
   {% if ing_list %}
   <ul class="list-container">
     {% for ing in ing_list %}
       <li><button id="{{ ing.id }}" type="button" class="clicker"><img src="{{ ing.image.url }}"><span>{{ ing.name }}</span></button></li>
-      <p id="test">oui</p>
       {% if id_posted %}
       <p>{{ id_posted }}</p>
       {% endif %}
