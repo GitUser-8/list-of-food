@@ -23,6 +23,7 @@
               <li><a href="{% url 'index' %}">Accueil</a></li>
               <li><a href="{% url 'ingredients' %}">Ingrédients</a></li>
               <li><a href="{% url 'recipes' %}">Recettes</a></li>
+              <li><a href="/admin">Admin</a></li>
               {% if user.is_authenticated %}
               <li>Utilisateur : {{ user.get_username }}</li>
               <li>

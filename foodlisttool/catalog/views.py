@@ -1,33 +1,61 @@
 from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 import json
+from datetime import date
+from django.contrib.auth.decorators import login_required
+from .models import Ingredient, Recipe, ShoppingList, UserInfo
+from django.core import serializers
 
 # Create your views here.
-
-from .models import Ingredient, Recipe, ShoppingList
 
 def index(request):
     """View function for home page of site."""
 
-    all_ing_list = Ingredient.objects.all()
+    ingredient_list = Ingredient.objects.all()
 
     context = {
-        'ing_list': all_ing_list
+        'ing_list': ingredient_list,
     }
 
-    if request.method == "POST":
-        post_data = json.loads(request.body.decode("utf-8"))
-        context['id_posted'] = post_data['id']
-
     
+    if request.user.is_authenticated:
+        shoppinglist_list = serializers.serialize("json", ShoppingList.objects.filter(user=request.user))
 
-    return render(request, 'index.html', context=context)
+        if shoppinglist_list:
+            context['shoplists'] = shoppinglist_list
+    
+        favorite_shoppinglist = UserInfo.objects.filter(user=request.user.id).get().favorite
+        context['favorite'] = favorite_shoppinglist
 
-def add_item_to_list_view(request):
+
+    response = render(request, 'index.html', context=context)
+
+    # Get the clicked element id, add to the current list
     if request.method == "POST":
         post_data = json.loads(request.body.decode("utf-8"))
-        return post_data['id']
+        if post_data["clicked_id"]:
+            response.headers["clicked_id"] = post_data["clicked_id"]
+
+    return response
+
+@login_required
+def save_shopping_list_name(request):
+    if request.method == 'POST':
+        list_to_update = ShoppingList.objects.get(user=request.user)
+        list_to_update.name = request.POST["name"]
+        list_to_update.save()
+    return HttpResponse("Object has probably been saved.")
+
+# def add_item_to_list_view(request):
+#     response = HttpResponse("trying")
+#     response.headers["my_header"] = 48000
+#     if request.method == "POST":
+#         post_data = json.loads(request.body.decode("utf-8"))
+#         if post_data["id"] == 142:
+#             response.headers["my_header"] = 49000
+#     return response
 
 class ShoppingListDetailView(LoginRequiredMixin, generic.DetailView):
     model = ShoppingList

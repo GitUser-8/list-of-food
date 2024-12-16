@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 class UserInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     registered_recipes = models.ManyToManyField("Recipe")
+    favorite = models.ForeignKey("ShoppingList", null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.user.username
@@ -28,7 +29,7 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     """Model representing a recipe."""
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, null=True)
     ing_list = models.ManyToManyField(Ingredient)
     creator = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
@@ -43,6 +44,7 @@ class Recipe(models.Model):
 class ShoppingList(models.Model):
     """Model representing a store list."""
     user = models.ForeignKey(User, on_delete=models.RESTRICT, null=True)
+    name = models.CharField(max_length=100)
     date = models.DateField(null=True, blank=True)
     ing_list = models.ManyToManyField(Ingredient, blank=True)
     recipe_list = models.ManyToManyField(Recipe, blank=True)

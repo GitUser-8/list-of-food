@@ -7,9 +7,20 @@
 #logout-form {
   display: inline;
 }
+
 #logout-form button {
   padding: 0;
   margin: 0;
+}
+
+#list-name {
+  display: inline-block;
+  margin: 5px;
+}
+
+#list-name:hover {
+  outline: auto;
+  border-radius: 5px;
 }
 
 .list-container {
